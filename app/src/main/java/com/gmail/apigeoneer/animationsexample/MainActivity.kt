@@ -1,5 +1,7 @@
 package com.gmail.apigeoneer.animationsexample
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -57,7 +59,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun rotater() {
         val animator = ObjectAnimator.ofFloat(ivStar, View.ROTATION, -360f, 0f)
-        // to run the animation
+        // Change the animation duration to 1000 ms (since 3000 ms i.e. the default feels too short here)
+        animator.duration = 900
+        // to avoid jank
+        animator.addListener(object: AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                btnRotate.isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                btnRotate.isEnabled = true
+            }
+        })
+        // run the animation
         animator.start()
     }
 

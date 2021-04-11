@@ -116,7 +116,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun colorizer() {
-
+        // THe ofArgb() smooths the transition between the start & final values
+        // ivStar.parent -> background
+        val animator = ObjectAnimator.ofInt(ivStar.parent, "backgroundColor", Color.BLACK, Color.RED)
+        animator.setDuration(500)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableDuringAnimation(btnBackgroundColor)
+        animator.start()
     }
 
     private fun party() {

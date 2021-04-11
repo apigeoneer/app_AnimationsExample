@@ -8,8 +8,11 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 
 class MainActivity : AppCompatActivity() {
 
@@ -118,8 +121,8 @@ class MainActivity : AppCompatActivity() {
     private fun colorizer() {
         // THe ofArgb() smooths the transition between the start & final values
         // ivStar.parent -> background
-        val animator = ObjectAnimator.ofInt(ivStar.parent, "backgroundColor", Color.BLACK, Color.RED)
-        animator.setDuration(500)
+        val animator = ObjectAnimator.ofArgb(ivStar.parent, "backgroundColor", Color.BLACK, Color.RED)
+        animator.setDuration(400)
         animator.repeatCount = 1
         animator.repeatMode = ObjectAnimator.REVERSE
         animator.disableDuringAnimation(btnBackgroundColor)
@@ -129,14 +132,29 @@ class MainActivity : AppCompatActivity() {
     private fun party() {
         // ivStar.parent -> background
         val animator = ObjectAnimator.ofInt(ivStar.parent, "backgroundColor", Color.BLACK, Color.RED)
-        animator.setDuration(600)
+        animator.setDuration(400)
         animator.repeatCount = 1
         animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableDuringAnimation(btnParty)
         animator.start()
     }
 
     private fun shower() {
-        TODO("Not yet implemented")
+        // Hold the required states
+        val container = ivStar.parent as ViewGroup
+        val containerW = container.width
+        val containerH = container.height
+        val startW = ivStar.width.toFloat()
+        val startH = ivStar.height.toFloat()
+
+        // Create a new view to hold the star graphic
+        val newStar = AppCompatImageView(this)
+        // Create teh star
+        newStar.setImageResource(R.drawable.ic_baseline_star_24)
+        newStar.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT)
+        // Add the star to the background
+        container.addView(newStar)
     }
 
     // Extension fun

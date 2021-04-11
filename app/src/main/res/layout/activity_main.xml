@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/animationsCL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#010122"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/animationsLL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#F1F1F1"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/rotateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#CDDC39"
+            android:text="Rotate"
+            android:textColor="#212121"
+            android:textSize="8.5sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/translateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#CDDC39"
+            android:text="Translate"
+            android:textColor="#212121"
+            android:textSize="8.5sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/scaleBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#CDDC39"
+            android:text="Scale"
+            android:textColor="#212121"
+            android:textSize="8.5sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/fadeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#CDDC39"
+            android:text="Fade"
+            android:textColor="#212121"
+            android:textSize="8.5sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/animations2LL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#F1F1F1"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animationsLL">
+
+        <Button
+            android:id="@+id/backgroundBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#8BC34A"
+            android:text="Background Color"
+            android:textColor="#212121"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/showerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#8BC34A"
+            android:text="Shower"
+            android:textColor="#212121"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animations2LL">
+
+        <ImageView
+            android:id="@+id/starImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

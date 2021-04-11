@@ -57,24 +57,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun disableDuringAnimation(view: View, animator: ObjectAnimator?) {
-        animator?.addListener(object: AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                btnRotate.isEnabled = false
-            }
-
-            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
-                btnRotate.isEnabled = true
-            }
-        })
-    }
-
     private fun rotater() {
         val animator = ObjectAnimator.ofFloat(ivStar, View.ROTATION, -360f, 0f)
         // Change the animation duration to 1000 ms (since 3000 ms i.e. the default feels too short here)
         animator.duration = 900
         // to avoid jank
-        disableDuringAnimation(btnRotate, animator)
+        animator.disableDuringAnimation(btnRotate)
         // run the animation
         animator.start()
     }
@@ -95,7 +83,7 @@ class MainActivity : AppCompatActivity() {
          */
         animator.repeatCount = 1
         animator.repeatMode = ObjectAnimator.REVERSE
-        disableDuringAnimation(btnTranslate, animator)
+        animator.disableDuringAnimation(btnTranslate)
         animator.start()
     }
 
@@ -113,5 +101,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun shower() {
         TODO("Not yet implemented")
+    }
+
+    // Extension fun
+    private fun ObjectAnimator.disableDuringAnimation(view: View) {
+        addListener(object: AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                btnRotate.isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                btnRotate.isEnabled = true
+            }
+        })
     }
 }

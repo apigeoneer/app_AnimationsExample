@@ -1,7 +1,9 @@
 package com.gmail.apigeoneer.animationsexample
 
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 
@@ -54,7 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rotater() {
-
+        val animator = ObjectAnimator.ofFloat(ivStar, View.ROTATION, -360f, 0f)
+        // to run the animation
+        animator.start()
     }
 
     private fun translater() {

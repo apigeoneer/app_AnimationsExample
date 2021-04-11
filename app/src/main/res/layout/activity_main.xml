@@ -95,6 +95,18 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/partyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#8BC34A"
+            android:text="Party"
+            android:textColor="#212121"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/showerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

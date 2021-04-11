@@ -3,6 +3,8 @@ package com.gmail.apigeoneer.animationsexample
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnScale: Button
     private lateinit var btnFade: Button
     private lateinit var btnBackgroundColor: Button
+    private lateinit var btnParty: Button
     private lateinit var btnShower: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         btnScale = findViewById(R.id.scaleBtn)
         btnFade = findViewById(R.id.fadeBtn)
         btnBackgroundColor = findViewById(R.id.backgroundBtn)
+        btnParty = findViewById(R.id.partyBtn)
         btnShower = findViewById(R.id.showerBtn)
 
         btnRotate.setOnClickListener {
@@ -40,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnScale.setOnClickListener {
-            sacler()
+            scaler()
         }
 
         btnFade.setOnClickListener {
@@ -49,6 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         btnBackgroundColor.setOnClickListener {
             colorizer()
+        }
+
+        btnParty.setOnClickListener {
+            party()
         }
 
         btnShower.setOnClickListener {
@@ -87,16 +95,37 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun sacler() {
-        TODO("Not yet implemented")
+    private fun scaler() {
+        // The PropertyValuesHolder objects only hold the property & value info of the animation, not the target.
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 2.5f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 2.5f)
+
+        val animator = ObjectAnimator.ofPropertyValuesHolder(ivStar, scaleX, scaleY)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableDuringAnimation(btnScale)
+        animator.start()
     }
 
     private fun fader() {
-        TODO("Not yet implemented")
+        val animator = ObjectAnimator.ofFloat(ivStar, View.ALPHA, 0f)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableDuringAnimation(btnFade)
+        animator.start()
     }
 
     private fun colorizer() {
-        TODO("Not yet implemented")
+
+    }
+
+    private fun party() {
+        // ivStar.parent -> background
+        val animator = ObjectAnimator.ofInt(ivStar.parent, "backgroundColor", Color.BLACK, Color.RED)
+        animator.setDuration(600)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.start()
     }
 
     private fun shower() {

@@ -1,14 +1,13 @@
 package com.gmail.apigeoneer.animationsexample
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
+import android.animation.*
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -144,17 +143,49 @@ class MainActivity : AppCompatActivity() {
         val container = ivStar.parent as ViewGroup
         val containerW = container.width
         val containerH = container.height
-        val startW = ivStar.width.toFloat()
-        val startH = ivStar.height.toFloat()
+        var starW = ivStar.width.toFloat()
+        var starH = ivStar.height.toFloat()
 
         // Create a new view to hold the star graphic
         val newStar = AppCompatImageView(this)
-        // Create teh star
+        // Create the star
         newStar.setImageResource(R.drawable.ic_baseline_star_24)
         newStar.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                                 FrameLayout.LayoutParams.WRAP_CONTENT)
         // Add the star to the background
         container.addView(newStar)
+
+        // Set the size of the star (.5x <= random size <= 1.5x of default size)
+        newStar.scaleX = Math.random().toFloat() * 1.5f + .5f
+        newStar.scaleY = newStar.scaleX
+        // Use the above scale factor to change the cached width/height values
+        starW *= newStar.scaleX                    // ?
+        starH *= newStar.scaleY
+
+        // Position the star
+        // horizontally
+        newStar.translationX = Math.random().toFloat() * containerW - starW / 2
+        /**
+         * vertically
+         * Step 1: Create 2 animators: mover & rotator, along w/ their interpolators
+         */
+        val mover = ObjectAnimator.ofFloat(newStar, View.TRANSLATION_Y, -starH, containerH + starH)
+        mover.interpolator = AccelerateInterpolator(1.2f)          // vertical fall is accelerated
+        val rotator = ObjectAnimator.ofFloat(newStar, View.ROTATION, (Math.random() * 1080).toFloat())         // 0 deg - 3*360 deg : 0 <= #rotations <= 3
+        rotator.interpolator = LinearInterpolator()                      // rotation is linear
+
+        // Combine the 2 animators to run in parallel using AnimatorSet
+        val set = AnimatorSet()
+        set.playTogether(mover, rotator)
+        set.duration = (Math.random() * 1500 + 500).toLong()
+
+        // Ren=move the star at the end of teh animation.
+        set.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                container.removeView(newStar)
+            }
+        })
+        set.start()
     }
 
     // Extension fun
